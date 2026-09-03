@@ -1,0 +1,24 @@
+# Generated build output and caches. None of this is source.
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+clipai.egg-info/
+**/__pycache__/
+*.pyc
+
+# Private runtime state and secrets. These must never be committed or shipped.
+.env
+config.toml
+clipai.log
+clipai.log.*
+history.json
+usage-*.jsonl
+clipai.lock
+debug-*.log
+
+# Code-signing material.
+*.pfx
+*.p12

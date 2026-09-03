@@ -1,0 +1,85 @@
+Pedantic 0.1.2
+==============
+
+Pedantic rewrites the text you have selected in any Windows application.
+Select text, press a hotkey, and the selection is replaced by the result.
+
+  Ctrl+Shift+G   fix spelling, grammar, and punctuation
+  Ctrl+Shift+F   rewrite in a professional register
+  Ctrl+Shift+C   shorten while keeping every point
+  Ctrl+Shift+B   convert to a bulleted list
+  Ctrl+Shift+R   draft a short reply
+
+The application runs in the system tray. A green "P" icon means it is ready.
+
+
+Installing
+----------
+
+Option 1 - run it directly. Double-click Pedantic.exe. Nothing is installed.
+
+Option 2 - install for your user account, with no administrator rights:
+
+    powershell -ExecutionPolicy Bypass -File Install-Pedantic.ps1
+
+Optional shortcuts:
+
+    powershell -ExecutionPolicy Bypass -File Install-Pedantic.ps1 -DesktopShortcut -StartWithWindows
+
+This copies Pedantic.exe to:
+
+    %LOCALAPPDATA%\Programs\Pedantic\Pedantic.exe
+
+To remove it:
+
+    powershell -ExecutionPolicy Bypass -File Install-Pedantic.ps1 -Uninstall
+
+
+First launch
+------------
+
+Pedantic asks for an Anthropic API key, checks it against the Anthropic API,
+and stores it in the Windows Credential Manager under the service "Pedanticai".
+The key is never written to configuration files or logs.
+
+Get a key from https://console.anthropic.com/.
+
+
+Configuration
+-------------
+
+Right-click the tray icon and choose "Open config file", or edit:
+
+    %APPDATA%\clipai\config.toml
+
+Each profile has its own hotkey, prompt, temperature, and paste setting. Save
+the file and Pedantic validates and reloads it immediately. An invalid file is
+rejected and the previous settings stay active.
+
+
+Windows Defender SmartScreen
+----------------------------
+
+Pedantic is not code-signed, so Windows may warn about an unknown publisher.
+Choose "More info" and then "Run anyway", or ask your IT department to approve
+the executable.
+
+
+If a hotkey does nothing
+------------------------
+
+1. Make sure text is actually selected and that the application supports
+   Ctrl+C.
+2. An application running as Administrator cannot receive keystrokes from a
+   non-elevated Pedantic. Run both at the same level.
+3. If copying is slow on your machine, raise clipboard_poll_timeout_ms in
+   config.toml, for example to 1500.
+4. Check the log: %APPDATA%\clipai\clipai.log
+
+
+Uninstalling
+------------
+
+If you used the setup program, remove Pedantic from Windows Settings >
+Installed apps. Your configuration, history, and log stay in %APPDATA%\clipai;
+delete that folder to remove them too.

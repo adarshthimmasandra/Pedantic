@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clipai"
+version = "0.1.2"
+description = "Pedantic - transform selected text anywhere in Windows with a global hotkey"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "Pedantic" }]
+keywords = ["clipboard", "hotkey", "anthropic", "claude", "windows", "tray"]
+classifiers = [
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Text Processing",
+]
+
+dependencies = [
+    "anthropic>=0.40",
+    "certifi>=2024.0",
+    "httpx2",
+    "keyring>=25.0",
+    "pystray>=0.19",
+    "pillow>=10.0",
+    "pynput>=1.7",
+    "pyperclip>=1.9",
+    "watchdog>=4.0",
+    "tomli-w>=1.0",
+    "pywin32>=306; sys_platform == 'win32'",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pyinstaller>=6.0",
+]
+
+[project.scripts]
+clipai = "clipai.__main__:main"
+
+[tool.setuptools]
+packages = ["clipai", "clipai.backends"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not integration and not live_api'"
+markers = [
+    "integration: exercises real Windows UI or other processes",
+    "live_api: calls the paid Anthropic API",
+]
+filterwarnings = ["ignore::DeprecationWarning"]
